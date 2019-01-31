@@ -4,7 +4,7 @@ package io.gamepride.libgdxonhigh.network;
  * @author Marat Kadzhaev
  * @since 0.1.0
  */
-public interface ConnectionProvider<T> {
+public interface ConnectionManager<T> {
 
     T connect(String host, int port);
 

@@ -4,23 +4,23 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Net.Protocol;
 import com.badlogic.gdx.net.Socket;
 import com.badlogic.gdx.net.SocketHints;
-import io.gamepride.libgdxonhigh.network.ConnectionProvider;
+import io.gamepride.libgdxonhigh.network.ConnectionManager;
 
 /**
  * @author Marat Kadzhaev
  * @since 0.1.0
  */
-public class SocketProvider implements ConnectionProvider<Socket> {
+public class SocketConnectionManager implements ConnectionManager<Socket> {
 
     // TCP by default
     private final Protocol protocol;
     private Socket socket;
 
-    public SocketProvider() {
+    public SocketConnectionManager() {
         this(Protocol.TCP);
     }
 
-    public SocketProvider(Protocol protocol) {
+    public SocketConnectionManager(Protocol protocol) {
         this.protocol = protocol;
     }
 

@@ -10,6 +10,7 @@ sourceCompatibility = 1.8
 ext {
     gdxVersion = '1.9.9'
     lombokVersion = '1.18.4'
+    nettyBufferVersion = '4.1.33.Final'
 }
 
 repositories {
@@ -18,6 +19,7 @@ repositories {
 
 dependencies {
     implementation "com.badlogicgames.gdx:gdx:$gdxVersion"
+    implementation "io.netty:netty-buffer:${nettyBufferVersion}"
     compileOnly "org.projectlombok:lombok:$lombokVersion"
     annotationProcessor "org.projectlombok:lombok:$lombokVersion"
     testCompile group: 'junit', name: 'junit', version: '4.12'

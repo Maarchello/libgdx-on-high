@@ -5,6 +5,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Preferences;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.files.FileHandle;
+import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.utils.I18NBundle;
 import io.gamepride.libgdxonhigh.core.Root;
 import io.gamepride.libgdxonhigh.core.RootConfiguration;
@@ -66,6 +67,23 @@ public class GameOnHigh extends Game implements Root {
     @Override
     public Platform getPlatform() {
         return platform;
+    }
+
+    // TODO:
+
+    @Override
+    public Camera getCamera() {
+        return null;
+    }
+
+    @Override
+    public int getApplicationWidth() {
+        return 0;
+    }
+
+    @Override
+    public int getApplicationHeight() {
+        return 0;
     }
 
     private void init() {

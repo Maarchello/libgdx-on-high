@@ -10,4 +10,8 @@ public interface ConnectionProvider<T> {
 
     T connect(String host, int port, Object...args);
 
+    void disconnect();
+
+    T getConnection();
+
 }

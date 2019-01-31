@@ -1,0 +1,14 @@
+# Gradle project build directories
+/bin
+/build
+/.gradle
+#/gradle
+#/gradlew
+#/gradlew.bat
+
+# IDEA-related files and directories
+/*.iml
+/*.iws
+/*.ipr
+/.idea
+/out

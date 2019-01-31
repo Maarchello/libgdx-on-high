@@ -3,12 +3,13 @@ plugins {
 }
 
 group 'io.gamepride'
-version '0.1-SNAPSHOT'
+version '0.1.0-SNAPSHOT'
 
 sourceCompatibility = 1.8
 
 ext {
     gdxVersion = '1.9.9'
+    lombokVersion = '1.18.4'
 }
 
 repositories {
@@ -17,5 +18,7 @@ repositories {
 
 dependencies {
     implementation "com.badlogicgames.gdx:gdx:$gdxVersion"
+    compileOnly "org.projectlombok:lombok:$lombokVersion"
+    annotationProcessor "org.projectlombok:lombok:$lombokVersion"
     testCompile group: 'junit', name: 'junit', version: '4.12'
 }

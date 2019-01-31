@@ -1,7 +1,7 @@
 package io.gamepride.libgdxonhigh.screen;
 
 import com.badlogic.gdx.Screen;
-import io.gamepride.libgdxonhigh.Root;
+import io.gamepride.libgdxonhigh.core.Root;
 import java.lang.reflect.InvocationTargetException;
 import java.util.HashMap;
 import java.util.Map;

@@ -21,4 +21,10 @@ public abstract class Assert {
         }
     }
 
+    public static void notEmpty(String value) {
+        if (value.isEmpty() || value.trim().isEmpty()) {
+            throw new IllegalArgumentException("[Assertion failed] - this argument is cannot be empty");
+        }
+    }
+
 }

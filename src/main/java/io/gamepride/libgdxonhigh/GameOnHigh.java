@@ -11,12 +11,15 @@ import io.gamepride.libgdxonhigh.core.Root;
 import io.gamepride.libgdxonhigh.core.RootConfiguration;
 import io.gamepride.libgdxonhigh.integration.Platform;
 import io.gamepride.libgdxonhigh.screen.ScreenManager;
+import io.gamepride.libgdxonhigh.util.Assert;
 
 /**
  * @author Marat Kadzhaev
  * @since 0.1.0
  */
 public class GameOnHigh extends Game implements Root {
+
+    private static final String DEFAULT_PREFERENCES_NAME = "on_high_preferences";
 
     private final RootConfiguration configuration;
 
@@ -29,6 +32,7 @@ public class GameOnHigh extends Game implements Root {
 
     public GameOnHigh() {
         this(null);
+
     }
 
     public GameOnHigh(RootConfiguration configuration) {
@@ -46,6 +50,10 @@ public class GameOnHigh extends Game implements Root {
 
     @Override
     public I18NBundle getBundle() {
+        if (bundle == null) {
+            throw new IllegalStateException("You must provide path to bundles in RootConfiguration");
+        }
+
         return bundle;
     }
 
@@ -78,12 +86,12 @@ public class GameOnHigh extends Game implements Root {
 
     @Override
     public int getApplicationWidth() {
-        return 0;
+        return configuration.getApplicationWidth();
     }
 
     @Override
     public int getApplicationHeight() {
-        return 0;
+        return configuration.getApplicationHeight();
     }
 
     private void init() {
@@ -96,16 +104,21 @@ public class GameOnHigh extends Game implements Root {
     }
 
     private void i18n() {
-        if (configuration != null) {
-            String bundlePackageName = configuration.getBundlePackageName();
-            String bundlePrefix = configuration.getBundlePrefix();
+        String i18nBundlePath = configuration.getI18nBundlePath();
+        if (i18nBundlePath != null && !i18nBundlePath.isEmpty()) {
+            FileHandle fileHandle = Gdx.files.internal(i18nBundlePath);
+            this.bundle = I18NBundle.createBundle(fileHandle);
         }
-        FileHandle fileHandle = Gdx.files.internal("i18n/MyBundle"); // todo
-        this.bundle = I18NBundle.createBundle(fileHandle);
     }
 
     private void preferences() {
-        // todo
+        String preferencesName = configuration.getPreferencesName();
+        if (preferencesName == null) {
+            preferences = Gdx.app.getPreferences(DEFAULT_PREFERENCES_NAME);
+        } else {
+            Assert.notEmpty(preferencesName);
+            preferences = Gdx.app.getPreferences(configuration.getPreferencesName());
+        }
     }
 
     private void screenManager() {

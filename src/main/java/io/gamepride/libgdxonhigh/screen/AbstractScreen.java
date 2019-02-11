@@ -15,11 +15,11 @@ public class AbstractScreen extends ScreenAdapter {
 
     private static final float DEFAULT_BACKGROUND_COLOR = 34 / 255f;
 
+    private final boolean autoStageUpdate;
+
     protected Object[] args;
     protected final Root root;
     protected final Stage stage;
-
-    private final boolean autoStageUpdate;
 
     public AbstractScreen(Root root, Object... args) {
         this(root, true, args);

@@ -30,20 +30,19 @@ public class GameOnHigh extends Game implements Root {
     private ScreenManager screenManager;
 
 
-    public GameOnHigh() {
-        this(null);
-
-    }
-
     public GameOnHigh(RootConfiguration configuration) {
-        this.configuration = configuration;
+        if (configuration == null) {
+            this.configuration = RootConfiguration.builder().build();
+        } else {
+            this.configuration = configuration;
+        }
     }
 
     @Override
     public void create() {
         init();
 
-        if (configuration != null && configuration.getAutoOpenScreen() != null) {
+        if (configuration.getAutoOpenScreen() != null) {
             screenManager.changeScreen(configuration.getAutoOpenScreen());
         }
     }

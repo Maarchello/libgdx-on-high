@@ -10,14 +10,14 @@ import java.util.Objects;
 public class ScreenType {
 
     private String name;
-    private Class<Screen> clazz;
+    private Class<? extends Screen> clazz;
 
-    public ScreenType(String name, Class<Screen> clazz) {
+    public ScreenType(String name, Class<? extends Screen> clazz) {
         this.name = name;
         this.clazz = clazz;
     }
 
-    public Class<Screen> getClazz() {
+    public Class<? extends Screen> getClazz() {
         return clazz;
     }
 

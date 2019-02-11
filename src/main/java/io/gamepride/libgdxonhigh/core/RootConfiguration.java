@@ -15,8 +15,8 @@ public final class RootConfiguration {
 
     private Platform platform;
     private String preferencesName;
-    private String bundlePackageName;
-    private String bundlePrefix;
+    private String i18nBundlePath;
     private ScreenType autoOpenScreen;
+    private int applicationWidth, applicationHeight;
 
 }

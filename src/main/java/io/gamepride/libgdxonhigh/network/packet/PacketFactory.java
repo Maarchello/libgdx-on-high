@@ -1,35 +1,61 @@
 package io.gamepride.libgdxonhigh.network.packet;
 
+import io.gamepride.libgdxonhigh.network.annotation.PacketMeta;
+import io.gamepride.libgdxonhigh.util.Assert;
+import java.io.File;
+import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
 
 /**
  * @author Marat Kadzhaev
- * @since 31.01.2019
+ * @since 0.1.0
  */
-public class PacketFactory<T extends AbstractPacket> {
+public class PacketFactory {
 
-    private static Map<Integer, Class> PACKETS = new HashMap<>();
+    private static Map<Object, Class> PACKETS = new HashMap<>();
 
-    static {
-//        PACKETS.put(0, AuthStep1S.class);
-//        PACKETS.put(1, AuthStep2S.class);
-//        PACKETS.put(2, AuthCheckS.class);
-    }
+    public static <T> T get(Object id, Class<T> type) {
+        Assert.notNull(id);
+        Assert.notNull(type);
 
-    public AbstractPacket get(Integer id) {
-        Class<T> packetClass = PACKETS.get(id);
+        Class aClass = PACKETS.get(id);
+        Object packet = null;
         try {
-            T packet = packetClass.newInstance();
-            packet.setId(id);
-            return packet;
+            packet = aClass.newInstance();
         } catch (InstantiationException e) {
             e.printStackTrace();
         } catch (IllegalAccessException e) {
             e.printStackTrace();
         }
 
-        return null;
+        return type.cast(packet);
+    }
+
+    public static void scanPackets(String packageName) {
+        try {
+            ClassLoader classLoader = PacketFactory.class.getClassLoader();
+
+            String packagePath = packageName.replace('.', '/');
+            URL urls = classLoader.getResource(packagePath);
+
+            File folder = new File(urls.getPath());
+            File[] classes = folder.listFiles();
+
+            for (File aClass : classes) {
+                int index = aClass.getName().indexOf(".");
+                String className = aClass.getName().substring(0, index);
+                String classNamePath = packageName + "." + className;
+
+                Class<?> repoClass = Class.forName(classNamePath);
+                PacketMeta annotation = repoClass.getAnnotation(PacketMeta.class);
+                if (annotation != null) {
+                    PACKETS.put(annotation.id(), repoClass);
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
 }

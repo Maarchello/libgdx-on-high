@@ -7,21 +7,13 @@ import lombok.Data;
  * @since 0.1.0
  */
 @Data
-public abstract class AbstractPacket<I, O> {
+public abstract class AbstractPacket<ID> implements Packet<ID> {
 
-    private int id;
+    protected ID id;
 
     public AbstractPacket() {
         id = getPacketID();
     }
 
-    /**
-     * todo
-     * @param data
-     */
-    public abstract void read(I data);
-
-    public abstract O write();
-
-    protected abstract int getPacketID();
+    protected abstract ID getPacketID();
 }

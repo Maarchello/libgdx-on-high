@@ -13,9 +13,9 @@ import java.util.Map;
  */
 public class PacketFactory {
 
-    private static Map<Object, Class> PACKETS = new HashMap<>();
+    private static Map<Integer, Class> PACKETS = new HashMap<>();
 
-    public static <T> T get(Object id, Class<T> type) {
+    public static <T> T get(Integer id, Class<T> type) {
         Assert.notNull(id);
         Assert.notNull(type);
 

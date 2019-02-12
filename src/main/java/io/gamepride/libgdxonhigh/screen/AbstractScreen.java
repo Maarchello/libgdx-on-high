@@ -2,6 +2,7 @@ package io.gamepride.libgdxonhigh.screen;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.ScreenAdapter;
+import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.viewport.FillViewport;
@@ -40,6 +41,14 @@ public class AbstractScreen extends ScreenAdapter {
         if (autoStageUpdate) {
             updateStage(delta);
         }
+    }
+
+    @Override
+    public void resize(int width, int height) {
+        Camera camera = root.getCamera();
+        camera.viewportWidth = width;
+        camera.viewportHeight = height;
+        camera.update();
     }
 
     protected void updateStage(float delta) {

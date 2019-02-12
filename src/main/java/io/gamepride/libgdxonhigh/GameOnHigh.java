@@ -12,6 +12,7 @@ import io.gamepride.libgdxonhigh.core.RootConfiguration;
 import io.gamepride.libgdxonhigh.integration.Platform;
 import io.gamepride.libgdxonhigh.screen.ScreenManager;
 import io.gamepride.libgdxonhigh.util.Assert;
+import java.lang.reflect.InvocationTargetException;
 
 /**
  * @author Marat Kadzhaev
@@ -23,19 +24,15 @@ public class GameOnHigh extends Game implements Root {
 
     private final RootConfiguration configuration;
 
-    private Platform platform;
     private I18NBundle bundle;
     private Preferences preferences;
     private AssetManager assetManager;
     private ScreenManager screenManager;
-
+    private Camera camera;
 
     public GameOnHigh(RootConfiguration configuration) {
-        if (configuration == null) {
-            this.configuration = RootConfiguration.builder().build();
-        } else {
-            this.configuration = configuration;
-        }
+        Assert.notNull(configuration);
+        this.configuration = configuration;
     }
 
     @Override
@@ -73,14 +70,12 @@ public class GameOnHigh extends Game implements Root {
 
     @Override
     public Platform getPlatform() {
-        return platform;
+        return null; //todo
     }
-
-    // TODO:
 
     @Override
     public Camera getCamera() {
-        return null;
+        return camera;
     }
 
     @Override
@@ -98,8 +93,24 @@ public class GameOnHigh extends Game implements Root {
         preferences();
         screenManager();
         assetManager();
+        camera();
+    }
 
-        platform = configuration.getPlatform();
+    private void camera() {
+        Class<? extends Camera> camera = configuration.getCamera();
+        if (camera != null) {
+            try {
+                this.camera = camera.getDeclaredConstructor(Float.class, Float.class).newInstance((float)configuration.getApplicationWidth(), (float)configuration.getApplicationHeight());
+            } catch (InstantiationException e) {
+                e.printStackTrace();
+            } catch (IllegalAccessException e) {
+                e.printStackTrace();
+            } catch (InvocationTargetException e) {
+                e.printStackTrace();
+            } catch (NoSuchMethodException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
     private void i18n() {

@@ -2,6 +2,7 @@ package io.gamepride.libgdxonhigh.network.packet;
 
 import io.gamepride.libgdxonhigh.network.annotation.PacketMeta;
 import io.gamepride.libgdxonhigh.util.Assert;
+
 import java.io.File;
 import java.net.URL;
 import java.util.HashMap;
@@ -11,7 +12,9 @@ import java.util.Map;
  * @author Marat Kadzhaev
  * @since 0.1.0
  */
-public class PacketFactory {
+public final class PacketFactory {
+
+    private PacketFactory() {}
 
     private static Map<Integer, Class> PACKETS = new HashMap<>();
 
